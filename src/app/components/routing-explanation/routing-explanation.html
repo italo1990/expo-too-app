@@ -1,0 +1,167 @@
+<!-- <div class="card">
+  <div class="card-header">
+    <h2>Rutas (Routing) en Angular</h2>
+  </div>
+  <div class="card-body">
+    <p>
+      El <strong>Sistema de Rutas (Routing)</strong> en Angular permite definir cómo los usuarios navegan
+      entre diferentes vistas o componentes dentro de la aplicación sin recargar la página completa.
+      Esto crea una experiencia de usuario fluida y dinámica, esencial en aplicaciones modernas de
+      una sola página (SPA).
+    </p>
+    <p>
+      Las rutas se definen en un array de objetos <code>Routes</code>, generalmente en un módulo de enrutamiento
+      separado (por convención, <code>app-routing.module.ts</code>).
+    </p>
+
+    <hr>
+
+    <h3>Ejemplo de Configuración de Rutas (<code>app-routing.module.ts</code>):</h3>
+    <pre><code class="language-typescript">
+// Importa los módulos necesarios de Angular Router.
+import &#123; NgModule &#125; from '&#64;angular/core';
+import &#123; RouterModule, Routes &#125; from '&#64;angular/router';
+
+// Importa los componentes que serán asociados a las rutas.
+// Cada componente representa una "vista" de nuestra aplicación.
+import &#123; HomeComponent &#125; from './components/home/home';
+import &#123; ComponentExplanation &#125; from './components/component-explanation/component-explanation';
+import &#123; ServiceExplanation &#125; from './components/service-explanation/service-explanation';
+// ... y otros componentes de tu aplicación
+
+// Define el array de rutas. Cada objeto de tipo Route define una ruta individual.
+const routes: Routes = [
+  // Ruta raíz: Cuando la URL es '/', Angular cargará el HomeComponent.
+  // 'pathMatch: 'full'' asegura que la URL coincida exactamente con la cadena vacía.
+  &#123; path: '', component: HomeComponent, pathMatch: 'full' &#125;,
+
+  // Ruta para el componente de explicación de Componentes.
+  // Cuando la URL es '/componentes', se cargará ComponentExplanationComponent.
+  &#123; path: 'componentes', component: ComponentExplanationComponent &#125;,
+
+  // Ruta para el componente de explicación de Servicios.
+  &#123; path: 'servicios', component: ServiceExplanationComponent &#125;,
+
+  // Puedes añadir más rutas aquí para otros componentes y funcionalidades.
+  // Ejemplo de ruta con un parámetro:
+  // &#123; path: 'producto/:id', component: ProductDetailComponent &#125;,
+
+  // Ruta comodín (**): Captura cualquier URL que no haya coincidido con las rutas anteriores.
+  // Es útil para implementar una página "404 No Encontrado" o, como en este caso,
+  // redirigir al usuario a la página de inicio para URLs no válidas.
+  &#123; path: '**', redirectTo: '' &#125;
+];
+
+&#64;NgModule(&#123;
+  // RouterModule.forRoot(routes) configura el enrutador a nivel de la aplicación raíz.
+  // Esto debe hacerse solo una vez en el módulo principal de enrutamiento (generalmente AppModule o AppRoutingModule).
+  imports: [RouterModule.forRoot(routes)],
+  // Exporta RouterModule para que las directivas de enrutamiento (como routerLink y router-outlet)
+  // estén disponibles para otros módulos que importen este AppRoutingModule.
+  exports: [RouterModule]
+&#125;)
+export class AppRoutingModule &#123; &#125;
+    </code></pre>
+
+    <p>
+      En tus plantillas HTML, usas la directiva <code>routerLink</code> para crear enlaces de navegación
+      y <code>&lt;router-outlet&gt;</code> para indicar dónde debe renderizarse el componente
+      correspondiente a la ruta activa.
+    </p>
+    <pre><code class="language-html">
+&lt;!-- app.html (ejemplo de uso) --&gt;
+&lt;nav&gt;
+  &lt;a routerLink=&quot;/&quot;&gt;Inicio&lt;/a&gt;
+  &lt;a routerLink=&quot;/componentes&quot;&gt;Ver Componentes&lt;/a&gt;
+  &lt;a routerLink=&quot;/servicios&quot;&gt;Ver Servicios&lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;!-- El &lt;router-outlet&gt; es el placeholder donde Angular inserta el componente de la ruta activa --&gt;
+&lt;router-outlet&gt;&lt;/router-outlet&gt;
+    </code></pre>
+  </div>
+</div> -->
+
+<section class="card mb-4">
+  <header class="card-header">
+    <h2 class="h4">Rutas (Routing) en Angular</h2>
+  </header>
+  <div class="card-body">
+    <p>
+      El **Sistema de Rutas (Routing)** en Angular permite definir cómo los usuarios navegan
+      entre diferentes vistas o componentes dentro de la aplicación sin recargar la página completa.
+      Esto crea una **experiencia de usuario fluida y dinámica**, esencial en aplicaciones modernas de
+      una sola página (SPA).
+    </p>
+    <p>
+      Las rutas se definen en un array de objetos `Routes`, generalmente en un módulo de enrutamiento
+      separado (por convención, `app-routing.module.ts`).
+    </p>
+
+    <hr>
+
+    <h3>Ejemplo de Configuración de Rutas (<code>app-routing.module.ts</code>):</h3>
+    <div style="font-family: 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace; font-size: 0.9em; line-height: 1.5; background-color: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto; white-space: pre-wrap;">
+&lt;!-- Importa los módulos necesarios de Angular Router. --&gt;
+import &#123; NgModule &#125; from '&#64;angular/core';
+import &#123; RouterModule, Routes &#125; from '&#64;angular/router';
+
+&lt;!-- Importa los componentes que serán asociados a las rutas. --&gt;
+&lt;!-- Cada componente representa una "vista" de nuestra aplicación. --&gt;
+import &#123; HomeComponent &#125; from './components/home/home.component';
+import &#123; ComponentExplanationComponent &#125; from './components/component-explanation/component-explanation.component';
+import &#123; ServiceExplanationComponent &#125; from './components/service-explanation/service-explanation.component';
+&lt;!-- ... y otros componentes de tu aplicación --&gt;
+
+&lt;!-- Define el array de rutas. Cada objeto de tipo Route define una ruta individual. --&gt;
+const routes: Routes = [
+  &lt;!-- Ruta raíz: Cuando la URL es '/', Angular cargará el HomeComponent. --&gt;
+  &lt;!-- 'pathMatch: 'full'' asegura que la URL coincida exactamente con la cadena vacía. --&gt;
+  &#123; path: '', component: HomeComponent, pathMatch: 'full' &#125;,
+
+  &lt;!-- Ruta para el componente de explicación de Componentes. --&gt;
+  &lt;!-- Cuando la URL es '/componentes', se cargará ComponentExplanationComponent. --&gt;
+  &#123; path: 'componentes', component: ComponentExplanationComponent &#125;,
+
+  &lt;!-- Ruta para el componente de explicación de Servicios. --&gt;
+  &#123; path: 'servicios', component: ServiceExplanationComponent &#125;,
+
+  &lt;!-- Puedes añadir más rutas aquí para otros componentes y funcionalidades. --&gt;
+  &lt;!-- Ejemplo de ruta con un parámetro: --&gt;
+  &lt;!-- &#123; path: 'producto/:id', component: ProductDetailComponent &#125;, --&gt;
+
+  &lt;!-- Ruta comodín (**): Captura cualquier URL que no haya coincidido con las rutas anteriores. --&gt;
+  &lt;!-- Es útil para implementar una página "404 No Encontrado" o, como en este caso, --&gt;
+  &lt;!-- redirigir al usuario a la página de inicio para URLs no válidas. --&gt;
+  &#123; path: '**', redirectTo: '' &#125;
+];
+
+&#64;NgModule(&#123;
+  &lt;!-- RouterModule.forRoot(routes) configura el enrutador a nivel de la aplicación raíz. --&gt;
+  &lt;!-- Esto debe hacerse solo una vez en el módulo principal de enrutamiento (generalmente AppModule o AppRoutingModule). --&gt;
+  imports: [RouterModule.forRoot(routes)],
+  &lt;!-- Exporta RouterModule para que las directivas de enrutamiento (como routerLink y router-outlet) --&gt;
+  &lt;!-- estén disponibles para otros módulos que importen este AppRoutingModule. --&gt;
+  exports: [RouterModule]
+&#125;)
+export class AppRoutingModule &#123; &#125;
+    </div>
+
+    <p>
+      En tus plantillas HTML, usas la directiva **`routerLink`** para crear enlaces de navegación
+      y **`&lt;router-outlet&gt;`** para indicar dónde debe renderizarse el componente
+      correspondiente a la ruta activa.
+    </p>
+    <div style="font-family: 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace; font-size: 0.9em; line-height: 1.5; background-color: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto; white-space: pre-wrap;">
+&lt;!-- app.component.html (ejemplo de uso) --&gt;
+&lt;nav&gt;
+  &lt;a routerLink=&quot;/&quot;&gt;Inicio&lt;/a&gt;
+  &lt;a routerLink=&quot;/componentes&quot;&gt;Ver Componentes&lt;/a&gt;
+  &lt;a routerLink=&quot;/servicios&quot;&gt;Ver Servicios&lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;!-- El &lt;router-outlet&gt; es el placeholder donde Angular inserta el componente de la ruta activa --&gt;
+&lt;router-outlet&gt;&lt;/router-outlet&gt;
+    </div>
+  </div>
+</section>

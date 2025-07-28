@@ -1,0 +1,184 @@
+<section class="card mb-4">
+  <header class="card-header">
+    <h2 class="h4">Programación Orientada a Objetos, Decoradores y Observables (RxJS) en Angular</h2>
+  </header>
+  <div class="card-body">
+    <p>
+      Angular se basa íntegramente en **TypeScript**, un superconjunto de JavaScript que añade
+      **tipado estático** y características de **Programación Orientada a Objetos (POO)** como clases,
+      interfaces, herencia y encapsulación. Esto mejora la modularidad, la mantenibilidad y la robustez del código.
+    </p>
+
+    <hr>
+
+    <h3>Clases e Interfaces:</h3>
+    <p>
+      Las **Clases** son la base para definir componentes (`&#64;Component`), servicios (`&#64;Injectable`),
+      modelos de datos y cualquier otra lógica de la aplicación.
+      Las **Interfaces** se utilizan para definir la forma y estructura de los datos, lo que mejora
+      el tipado, la validación en tiempo de desarrollo y la seguridad del código, especialmente al interactuar con APIs.
+    </p>
+    <div style="font-family: 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace; font-size: 0.9em; line-height: 1.5; background-color: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto; white-space: pre-wrap;">
+&lt;!-- Definición de una Interfaz para un modelo de datos. --&gt;
+&lt;!-- Una interfaz define un "contrato" para la forma de un objeto. --&gt;
+interface Producto &#123;
+  id: number;
+  nombre: string;
+  precio: number;
+  disponible: boolean;
+&#125;
+
+&lt;!-- Definición de una Clase 'CarritoDeCompras'. --&gt;
+&lt;!-- Las clases permiten agrupar propiedades (atributos) y métodos (comportamiento). --&gt;
+class CarritoDeCompras &#123;
+  &lt;!-- Propiedad que almacena una lista de productos, tipada con la interfaz Producto. --&gt;
+  productos: Producto[] = [];
+
+  constructor() &#123; &#125;
+
+  &lt;!-- Método para añadir un producto al carrito. --&gt;
+  agregarProducto(producto: Producto): void &#123;
+    this.productos.push(producto);
+  &#125;
+
+  &lt;!-- Método para calcular el total del carrito. --&gt;
+  calcularTotal(): number &#123;
+    return this.productos.reduce((total, producto) => total + producto.precio, 0);
+  &#125;
+&#125;
+
+&lt;!-- Uso de la clase y la interfaz --&gt;
+const miProducto: Producto = &#123; id: 1, nombre: 'Laptop', precio: 1200, disponible: true &#125;;
+const miCarrito = new CarritoDeCompras();
+miCarrito.agregarProducto(miProducto);
+console.log('Total del carrito:', miCarrito.calcularTotal());
+    </div>
+
+    <hr>
+
+    <h3>Decoradores:</h3>
+    <p>
+      Los **Decoradores** son funciones especiales que se aplican a clases, métodos, propiedades o parámetros
+      para añadir metadatos o modificar su comportamiento. Son una característica clave de TypeScript y Angular.
+      Ejemplos comunes incluyen:
+    </p>
+      <ul>
+        <li>`&#64;Component()`: Para marcar una clase como un componente.</li>
+        <li>`&#64;Injectable()`: Para marcar una clase como un servicio inyectable.</li>
+        <li>`&#64;Input()` y `&#64;Output()`: Para la comunicación entre componentes.</li>
+        <li>`&#64;Directive()`: Para crear directivas personalizadas.</li>
+        <li>`&#64;Pipe()`: Para crear pipes personalizadas para transformar datos.</li>
+      </ul>
+
+    <div style="font-family: 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace; font-size: 0.9em; line-height: 1.5; background-color: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto; white-space: pre-wrap;">
+&lt;!-- Ejemplo de &#64;Input y &#64;Output para comunicación entre componentes (parent-child) --&gt;
+import &#123; Component, Input, Output, EventEmitter &#125; from '&#64;angular/core';
+
+&#64;Component(&#123;
+  selector: 'app-child-component',
+  template: `
+    <!-- &lt;p&gt;Mensaje del padre: &#123;&#123; messageFromParent &#125;&#125;&lt;/p&gt; -->
+    &lt;button (click)=&quot;sendMessageToParent()&quot;&gt;Enviar Mensaje al Padre&lt;/button&gt;
+  `
+&#125;)
+export class ChildComponent &#123;
+  &lt;!-- &#64;Input() permite que una propiedad del componente hijo reciba datos del componente padre. --&gt;
+  &#64;Input() messageFromParent: string = '';
+
+  &lt;!-- &#64;Output() permite que un componente hijo emita eventos que el componente padre puede escuchar. --&gt;
+  &lt;!-- EventEmitter es una clase de Angular para emitir eventos personalizados. --&gt;
+  &#64;Output() messageEvent = new EventEmitter&lt;string&gt;();
+
+  sendMessageToParent(): void &#123;
+    this.messageEvent.emit('Hola desde el componente hijo!');
+  &#125;
+&#125;
+
+&lt;!-- En el componente padre (ParentComponent.ts): --&gt;
+&lt;!-- Se usaría &lt;app-child-component [messageFromParent]=&quot;'Hola hijo!'&quot; (messageEvent)=&quot;onMessageReceived($event)&quot;&gt;&lt;/app-child-component&gt; --&gt;
+&lt;!-- en su plantilla. --&gt;
+    </div>
+
+    <hr>
+
+    <h3>Observables (RxJS):</h3>
+    <p>
+      Los **Observables**, proporcionados por la librería **RxJS (Reactive Extensions for JavaScript)**,
+      son una herramienta fundamental para manejar eventos asíncronos y flujos de datos en Angular.
+      Son cruciales para gestionar las respuestas de peticiones HTTP a APIs, entradas de usuario o cambios de estado,
+      proporcionando un **modelo reactivo y declarativo** para la gestión de la asincronía.
+    </p>
+    <p>
+      A diferencia de las Promesas, los Observables son **"lazy" (perezosos)**, pueden emitir múltiples valores a lo largo del tiempo,
+      son **cancelables** y se pueden **componer** utilizando una rica colección de operadores.
+    </p>
+    <div style="font-family: 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace; font-size: 0.9em; line-height: 1.5; background-color: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto; white-space: pre-wrap;">
+import &#123; Component, OnInit, OnDestroy &#125; from '&#64;angular/core';
+import &#123; Observable, Subscription, of, from &#125; from 'rxjs'; &lt;!-- 'of' y 'from' son operadores de creación --&gt;
+import &#123; map, filter &#125; from 'rxjs/operators'; &lt;!-- Operadores para transformar o filtrar el flujo --&gt;
+
+&#64;Component(&#123;
+  selector: 'app-oop-explanation',
+  template: `
+    &lt;div&gt;
+      &lt;h3&gt;Ejemplo de Observable:&lt;/h3&gt;
+      &lt;p&gt;Datos del Observable: &lt;strong&gt;&#123;&#123; observableValue &#125;&#125;&lt;/strong&gt;&lt;/p&gt;
+    &lt;/div&gt;
+  `
+&#125;)
+export class OopExplanationComponent implements OnInit, OnDestroy &#123;
+  observableValue: string = 'Esperando datos...';
+  private dataSubscription: Subscription | undefined; &lt;!-- Para gestionar la suscripción y evitar fugas de memoria --&gt;
+
+  ngOnInit(): void &#123;
+    &lt;!-- 1. Creación de un Observable: --&gt;
+    &lt;!-- 'of()' crea un observable que emite una secuencia de valores definidos y luego completa. --&gt;
+    const myObservable = of('Hola', 'Mundo', 'Angular', 'RxJS');
+
+    &lt;!-- 'from()' crea un observable de un array o un iterable. --&gt;
+    const numberObservable = from([1, 2, 3, 4, 5]);
+
+    &lt;!-- 2. Suscripción a un Observable: --&gt;
+    &lt;!-- Nos suscribimos al observable para empezar a recibir sus emisiones. --&gt;
+    &lt;!-- El método 'subscribe' toma hasta tres callbacks: next, error, complete. --&gt;
+    this.dataSubscription = myObservable.subscribe(&#123;
+      next: (value: string) => &#123;
+        &lt;!-- 'next' se llama cada vez que el observable emite un nuevo valor. --&gt;
+        console.log('Valor emitido:', value);
+        this.observableValue = value; &lt;!-- Actualiza la UI con el último valor --&gt;
+      &#125;,
+      error: (error: any) => &#123;
+        &lt;!-- 'error' se llama si ocurre un error en el flujo. --&gt;
+        console.error('Error en el observable:', error);
+      &#125;,
+      complete: () => &#123;
+        &lt;!-- 'complete' se llama cuando el observable ha terminado de emitir valores. --&gt;
+        console.log('Observable completado.');
+        this.observableValue = 'Observable completado!';
+      &#125;
+    &#125;);
+
+    &lt;!-- Ejemplo de uso de operadores: map y filter --&gt;
+    numberObservable.pipe(
+      &lt;!-- 'map' transforma cada valor emitido. Aquí, duplica el número. --&gt;
+      map(num => num * 2),
+      &lt;!-- 'filter' permite que solo pasen los valores que cumplen una condición. --&gt;
+      filter(num => num > 5)
+    ).subscribe(transformedNum => &#123;
+      console.log('Número transformado y filtrado:', transformedNum);
+    &#125;);
+  &#125;
+
+  ngOnDestroy(): void &#123;
+    &lt;!-- Es CRÍTICO desuscribirse de los observables para evitar fugas de memoria, --&gt;
+    &lt;!-- especialmente con observables de larga duración (ej. HTTP requests, eventos de UI). --&gt;
+    &lt;!-- Esto se hace típicamente en el hook ngOnDestroy. --&gt;
+    if (this.dataSubscription) &#123;
+      this.dataSubscription.unsubscribe();
+      console.log('Suscripción desuscrita.');
+    &#125;
+  &#125;
+&#125;
+    </div>
+  </div>
+</section>
