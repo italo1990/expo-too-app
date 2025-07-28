@@ -6,11 +6,20 @@ import {
 } from '@angular/ssr/node';
 import express from 'express';
 import { join } from 'node:path';
+import { expressHandler } from '@genkit-ai/express';
+import { chatFlow } from './flows';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
+app.use(express.json());
 const angularApp = new AngularNodeAppEngine();
+
+/**
+ * Define an endpoint to call a flow.
+*/
+//api para el chatflow
+app.post('/chatFlow', expressHandler(chatFlow));
 
 /**
  * Example Express Rest API endpoints can be defined here.
