@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+//@import '~highlight.js/styles/monokai-sublime';
+
+.card {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+pre {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto; /* Para que el código largo no desborde */
+}
+
+code {
+  font-family: 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 0.9em;
+  line-height: 1.5;
+}

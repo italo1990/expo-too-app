@@ -1,0 +1,190 @@
+<!-- <div class="card">
+  <div class="card-header">
+    <h2>Servicios en Angular</h2>
+  </div>
+  <div class="card-body">
+    <p>
+      Los <strong>Servicios</strong> son clases que encapsulan lógica de negocio reutilizable y proporcionan
+      funcionalidad a los componentes. Son ideales para tareas como la comunicación con APIs externas,
+      la gestión de datos compartidos o cualquier lógica que no esté directamente ligada a la interfaz de usuario.
+      Gracias a la <strong>Inyección de Dependencias</strong>, los servicios pueden ser fácilmente proporcionados
+      y consumidos por los componentes.
+    </p>
+    <p>
+      Un servicio generalmente se marca con el <strong>Decorador <code>&#64;Injectable()</code></strong>,
+      lo que indica que puede ser inyectado en otras clases y que el inyector de dependencias de Angular
+      puede crear una instancia de él.
+    </p>
+
+    <hr>
+
+    <h3>Ejemplo de un Servicio Básico y su Consumo:</h3>
+    <pre><code class="language-typescript">
+// data.service.ts
+import &#123; Injectable &#125; from '&#64;angular/core';
+
+// El decorador &#64;Injectable() marca una clase como un servicio que puede ser inyectado.
+// El metadato 'providedIn: 'root'' significa que el servicio es un singleton y se
+// proporciona en el inyector raíz, haciéndolo disponible en toda la aplicación.
+&#64;Injectable(&#123;
+  providedIn: 'root'
+&#125;)
+export class DataService &#123;
+  private _data: string[] = ['Item 1', 'Item 2', 'Item 3'];
+
+  constructor() &#123; &#125;
+
+  getData(): string[] &#123;
+    return this._data;
+  &#125;
+
+  addData(item: string): void &#123;
+    this._data.push(item);
+  &#125;
+&#125;
+    </code></pre>
+
+    <p>
+      Para consumir este servicio en un componente, se inyecta en el constructor del componente:
+    </p>
+
+    <pre><code class="language-typescript">
+// service-explanation.ts (parte relevante)
+import &#123; Component, OnInit &#125; from "angular/core";
+import &#123; DataService &#125; from '../../services/data.service'; // Asegúrate de la ruta correcta
+
+&#64;Component(&#123;
+  selector: 'app-service-explanation',
+  templateUrl: './service-explanation.html',
+  styleUrls: ['./service-explanation.scss']
+&#125;)
+export class ServiceExplanationComponent implements OnInit &#123;
+  dataItems: string[] = [];
+  newItem: string = '';
+
+  // Inyección de dependencias: Angular inyecta una instancia de DataService
+  // cuando crea una instancia de ServiceExplanationComponent.
+  constructor(private dataService: DataService) &#123; &#125;
+
+  // ngOnInit es un Hook del ciclo de vida de Angular.
+  // Se ejecuta una vez que Angular ha inicializado todas las propiedades en el componente.
+  ngOnInit(): void &#123;
+    this.dataItems = this.dataService.getData();
+  &#125;
+
+  addItem(): void &#123;
+    if (this.newItem.trim()) &#123;
+      this.dataService.addData(this.newItem);
+      this.dataItems = this.dataService.getData(); // Actualiza la lista
+      this.newItem = ''; // Limpia el input
+    &#125;
+  &#125;
+&#125;
+    </code></pre>
+
+    <p>Datos obtenidos del servicio:</p>
+    <ul>
+      <li *ngFor="let item of dataItems">{{ item }}</li>
+    </ul>
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" [(ngModel)]="newItem" placeholder="Añadir nuevo elemento">
+      <button class="btn btn-primary" (click)="addItem()">Añadir</button>
+    </div>
+  </div>
+</div> -->
+
+
+<section class="card mb-4">
+  <header class="card-header">
+    <h2 class="h4">Servicios en Angular</h2>
+  </header>
+  <div class="card-body">
+    <p>
+      Los **Servicios** son clases que encapsulan lógica de negocio reutilizable y proporcionan
+      funcionalidad a los componentes. Son ideales para tareas como la comunicación con APIs externas,
+      la gestión de datos compartidos o cualquier lógica que no esté directamente ligada a la interfaz de usuario.
+      Gracias a la **Inyección de Dependencias**, los servicios pueden ser fácilmente proporcionados
+      y consumidos por los componentes.
+    </p>
+    <p>
+      Un servicio generalmente se marca con el **Decorador `&#64;Injectable()`**,
+      lo que indica que puede ser inyectado en otras clases y que el inyector de dependencias de Angular
+      puede crear una instancia de él.
+    </p>
+
+    <hr>
+
+    <h3>Ejemplo de un Servicio Básico y su Consumo:</h3>
+    <div style="font-family: 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace; font-size: 0.9em; line-height: 1.5; background-color: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto; white-space: pre-wrap;">
+&lt;!-- data.service.ts --&gt;
+import &#123; Injectable &#125; from '&#64;angular/core';
+
+&lt;!-- El decorador &#64;Injectable() marca una clase como un servicio que puede ser inyectado. --&gt;
+&lt;!-- El metadato 'providedIn: 'root'' significa que el servicio es un singleton y se --&gt;
+&lt;!-- proporciona en el inyector raíz, haciéndolo disponible en toda la aplicación. --&gt;
+&#64;Injectable(&#123;
+  providedIn: 'root'
+&#125;)
+export class DataService &#123;
+  private _data: string[] = ['Item 1', 'Item 2', 'Item 3'];
+
+  constructor() &#123; &#125;
+
+  getData(): string[] &#123;
+    return this._data;
+  &#125;
+
+  addData(item: string): void &#123;
+    this._data.push(item);
+  &#125;
+&#125;
+    </div>
+
+    <p>
+      Para consumir este servicio en un componente, se inyecta en el constructor del componente:
+    </p>
+
+    <div style="font-family: 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace; font-size: 0.9em; line-height: 1.5; background-color: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto; white-space: pre-wrap;">
+&lt;!-- service-explanation.component.ts (parte relevante) --&gt;
+import &#123; Component, OnInit &#125; from '&#64;angular/core';
+import &#123; DataService &#125; from '../../services/data.service'; &lt;!-- Asegúrate de la ruta correcta --&gt;
+
+&#64;Component(&#123;
+  selector: 'app-service-explanation',
+  templateUrl: './service-explanation.component.html',
+  styleUrls: ['./service-explanation.component.css']
+&#125;)
+export class ServiceExplanationComponent implements OnInit &#123;
+  dataItems: string[] = [];
+  newItem: string = '';
+
+  &lt;!-- Inyección de dependencias: Angular inyecta una instancia de DataService --&gt;
+  &lt;!-- cuando crea una instancia de ServiceExplanationComponent. --&gt;
+  constructor(private dataService: DataService) &#123; &#125;
+
+  &lt;!-- ngOnInit es un Hook del ciclo de vida de Angular. --&gt;
+  &lt;!-- Se ejecuta una vez que Angular ha inicializado todas las propiedades en el componente. --&gt;
+  ngOnInit(): void &#123;
+    this.dataItems = this.dataService.getData();
+  &#125;
+
+  addItem(): void &#123;
+    if (this.newItem.trim()) &#123;
+      this.dataService.addData(this.newItem);
+      this.dataItems = this.dataService.getData(); &lt;!-- Actualiza la lista --&gt;
+      this.newItem = ''; &lt;!-- Limpia el input --&gt;
+    &#125;
+  &#125;
+&#125;
+    </div>
+
+    <p>Datos obtenidos del servicio (Ejemplo Interactivo):</p>
+    <ul class="list-group mb-3">
+      <li class="list-group-item" *ngFor="let item of dataItems">{{ item }}</li>
+    </ul>
+    <div class="input-group">
+      <input type="text" class="form-control" [(ngModel)]="newItem" placeholder="Añadir nuevo elemento">
+      <button class="btn btn-primary" (click)="addItem()">Añadir</button>
+    </div>
+  </div>
+</section>
